@@ -4,20 +4,19 @@ const ConnectDatabase = require('./db/connect');
 require('dotenv').config();
 const NotFound = require('./middlewares/not-found');
 
+const ProductsRoutes = require('./routes/products');
 
-app.use(express.json());
-
-// app.use('/api/v1/tasks', TaskRoutes);
-app.use(NotFound);
 
 
 app.get('/', (req, res) => {
-    res.end('Node Store Api!');
+    res.end('<h1>Node Store Api</h1><a href="/api/v1/products">Go to products</a>');
 });
 
+app.use(express.json());
+app.use('/api/v1/products', ProductsRoutes);
 
 const port = process.env.PORT || 3000;
-
+app.use(NotFound);
 
 async function RunServer() {
     try {
